@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' data: blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; manifest-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Meta Tags — Free SEO, Open Graph &amp; Twitter Card Generator | S3eidat Tools</title>
+<meta name="description" content="Generate HTML meta, Open Graph and X/Twitter card tags with live Google, Facebook and X previews and length warnings. Free, private, nothing uploaded.">
+<meta property="og:title" content="Meta Tags — free SEO and social preview tag generator">
+<meta property="og:description" content="Meta + Open Graph + Twitter tags with live previews. Runs 100% in your browser.">
+<meta property="og:image" content="screenshot.png">
+<link rel="icon" href="kit/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="app.css">
+<script src="kit/kit.js"></script>
+</head>
+<body data-tool="meta-tags">
+<main class="s3-main">
+  <section class="s3-hero">
+    <h1>Meta Tags</h1>
+    <p>Fill in your page details and get the SEO, Open Graph and X (Twitter) tags, with live previews of how the link looks on Google, Facebook and X.</p>
+  </section>
+
+  <div class="grid-2 mt-grid">
+    <section class="card stack" id="form">
+      <div class="row between">
+        <h2>Page details</h2>
+        <div class="row">
+          <button class="btn ghost small" id="sample">Sample</button>
+          <button class="btn ghost small" id="clear"><svg class="i"><use href="#i-trash"/></svg>Clear</button>
+        </div>
+      </div>
+      <label class="field"><span class="lbl">Title <span class="count" data-for="title"></span></span>
+        <input class="input" id="title" dir="auto" autocomplete="off" placeholder="My page title, about 50–60 characters">
+      </label>
+      <label class="field"><span class="lbl">Description <span class="count" data-for="description"></span></span>
+        <textarea class="textarea prose" id="description" dir="auto" rows="3" placeholder="One or two sentences that make people want to click, about 150–160 characters."></textarea>
+      </label>
+      <label class="field"><span class="lbl">Page URL (canonical) <span class="count" data-for="url"></span></span>
+        <input class="input" id="url" type="url" dir="ltr" autocomplete="off" spellcheck="false" placeholder="yoursite.com/page">
+      </label>
+      <label class="field"><span class="lbl">Image URL <span class="count" data-for="image"></span></span>
+        <input class="input" id="image" type="url" dir="ltr" autocomplete="off" spellcheck="false" placeholder="yoursite.com/og-image.png (1200 × 630)">
+      </label>
+      <label class="field">Image alt text
+        <input class="input" id="imageAlt" dir="auto" autocomplete="off" placeholder="Describe the image for screen readers">
+      </label>
+      <div class="grid-2 tight">
+        <label class="field">Site name
+          <input class="input" id="siteName" dir="auto" autocomplete="off" placeholder="My Site">
+        </label>
+        <label class="field"><span class="lbl">X / Twitter handle <span class="count" data-for="twitter"></span></span>
+          <input class="input" id="twitter" dir="ltr" autocomplete="off" spellcheck="false" placeholder="@yourhandle">
+        </label>
+      </div>
+      <div class="grid-3 tight">
+        <label class="field">Type
+          <select class="select" id="type"><option value="website">website</option><option value="article">article</option><option value="product">product</option><option value="profile">profile</option></select>
+        </label>
+        <label class="field">X card
+          <select class="select" id="card"><option value="summary_large_image">Large image</option><option value="summary">Summary</option></select>
+        </label>
+        <label class="field">Locale
+          <input class="input" id="locale" dir="ltr" autocomplete="off" spellcheck="false" placeholder="en_US">
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="row between">
+        <h2>Previews</h2>
+        <label class="btn small" id="pick-img"><svg class="i"><use href="#i-image"/></svg>Preview image<input type="file" accept="image/*" hidden></label>
+      </div>
+      <p class="faint img-note">Previews never load your image URL: this page makes no network requests. Pick the same image from your device to see it here. It stays on your device.</p>
+
+      <h3 class="pv-h">Google</h3>
+      <div class="pv google">
+        <div class="g-site"><span class="g-fav" aria-hidden="true"></span><span><b id="g-name"></b><span id="g-crumb"></span></span></div>
+        <div class="g-title" id="g-title"></div>
+        <div class="g-desc" id="g-desc"></div>
+      </div>
+
+      <h3 class="pv-h">Facebook / LinkedIn</h3>
+      <div class="pv fb">
+        <div class="pv-img" data-img></div>
+        <div class="fb-body"><div class="fb-domain" id="fb-domain"></div><div class="fb-title" id="fb-title"></div><div class="fb-desc" id="fb-desc"></div></div>
+      </div>
+
+      <h3 class="pv-h">X (Twitter)</h3>
+      <div class="pv x" id="x-card">
+        <div class="pv-img" data-img><span class="x-over" id="x-over"></span></div>
+        <div class="x-body"><div class="x-domain" id="x-domain"></div><div class="x-title" id="x-title"></div><div class="x-desc" id="x-desc"></div></div>
+      </div>
+      <p class="faint x-from" id="x-from"></p>
+    </section>
+  </div>
+
+  <section class="card mt">
+    <div class="row between">
+      <h2>HTML for your &lt;head&gt;</h2>
+      <div class="row">
+        <span class="chip" id="issues"></span>
+        <button class="btn small" id="copy"><svg class="i"><use href="#i-copy"/></svg>Copy</button>
+        <button class="btn small" id="save"><svg class="i"><use href="#i-download"/></svg>.html</button>
+      </div>
+    </div>
+    <pre class="out mt" id="out" tabindex="0"></pre>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
